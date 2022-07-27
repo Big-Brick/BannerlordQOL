@@ -10,10 +10,10 @@ using TaleWorlds.MountAndBlade.View.MissionViews;
 namespace BannerlordQOL
 {
   [HarmonyPatch(typeof(MissionMainAgentController), "ControlTick")]
-  static class AttackingPatch
+  static class CombatPatch
   {
-    public static Agent.MovementControlFlag CurrentAttackType = 0U;
-    public static Agent.MovementControlFlag RequestedAttackType = Agent.MovementControlFlag.AttackUp;
+    public static Agent.MovementControlFlag CurrentDirection = 0U;
+    public static Agent.MovementControlFlag RequestedDirection = Agent.MovementControlFlag.AttackUp | Agent.MovementControlFlag.DefendUp;
 
     public static void Postfix(MissionMainAgentController __instance)
     {
@@ -24,34 +24,34 @@ namespace BannerlordQOL
         if (Input.IsKeyPressed(InputKey.Q))
         {
           InformationManager.DisplayMessage(new InformationMessage("BannerlordQOLSubModule.UP"));
-          AttackingPatch.RequestedAttackType = Agent.MovementControlFlag.AttackUp;
+          CombatPatch.RequestedDirection = Agent.MovementControlFlag.AttackUp | Agent.MovementControlFlag.DefendUp;
         }
         else if (Input.IsKeyPressed(InputKey.Z))
-          AttackingPatch.RequestedAttackType = Agent.MovementControlFlag.AttackLeft;
+          CombatPatch.RequestedDirection = Agent.MovementControlFlag.AttackLeft | Agent.MovementControlFlag.DefendLeft;
         else if (Input.IsKeyPressed(InputKey.X))
         {
           InformationManager.DisplayMessage(new InformationMessage("BannerlordQOLSubModule.DOWN"));
-          AttackingPatch.RequestedAttackType = Agent.MovementControlFlag.AttackDown;
+          CombatPatch.RequestedDirection = Agent.MovementControlFlag.AttackDown | Agent.MovementControlFlag.DefendDown;
         }
         else if (Input.IsKeyPressed(InputKey.C))
-          AttackingPatch.RequestedAttackType = Agent.MovementControlFlag.AttackRight;
-        if (Input.IsKeyDown(InputKey.LeftMouseButton))
+          CombatPatch.RequestedDirection = Agent.MovementControlFlag.AttackRight | Agent.MovementControlFlag.DefendRight;
+        if (Input.IsKeyDown(InputKey.LeftMouseButton) || Input.IsKeyDown(InputKey.RightMouseButton))
         {
-          if (AttackingPatch.CurrentAttackType != 0U && AttackingPatch.CurrentAttackType != AttackingPatch.RequestedAttackType)
+          if (CombatPatch.CurrentDirection != 0U && CombatPatch.CurrentDirection != CombatPatch.RequestedDirection)
           {
-            mainAgent.MovementFlags |= Agent.MovementControlFlag.DefendUp;
-            AttackingPatch.CurrentAttackType = 0U;
+            mainAgent.MovementFlags |= Input.IsKeyDown(InputKey.LeftMouseButton) ? Agent.MovementControlFlag.DefendUp : Agent.MovementControlFlag.AttackUp;
+            CombatPatch.CurrentDirection = 0U;
           }
           else
           {
             InformationManager.DisplayMessage(new InformationMessage("BannerlordQOLSubModule.CHANGE"));
-            mainAgent.MovementFlags &= ~Agent.MovementControlFlag.AttackMask;
-            mainAgent.MovementFlags |= AttackingPatch.RequestedAttackType;
-            AttackingPatch.CurrentAttackType = RequestedAttackType;
+            mainAgent.MovementFlags &= Input.IsKeyDown(InputKey.LeftMouseButton) ? ~Agent.MovementControlFlag.AttackMask : ~Agent.MovementControlFlag.DefendMask;
+            mainAgent.MovementFlags |= CombatPatch.RequestedDirection & (Input.IsKeyDown(InputKey.LeftMouseButton) ? Agent.MovementControlFlag.AttackMask : Agent.MovementControlFlag.DefendMask);
+            CombatPatch.CurrentDirection = RequestedDirection;
           }
         }
         else if (Input.IsKeyReleased(InputKey.LeftMouseButton))
-          AttackingPatch.CurrentAttackType = 0U;
+          CombatPatch.CurrentDirection = 0U;
       }
       catch(Exception ex)
       {
