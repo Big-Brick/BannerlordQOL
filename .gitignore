@@ -1,0 +1,8 @@
+.idea/
+.project
+.vscode/
+Gamedir
+Properties/
+bin/
+obj
+BannerlordQOL.sln.DotSettings.user
