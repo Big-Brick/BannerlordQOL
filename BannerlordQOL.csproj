@@ -63,8 +63,9 @@ cp BannerlordQOL.dll ../../Gamedir/Modules/BannerlordQOL/bin/Win64_Shipping_Clie
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="BannerlordQOLSubModule.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="src\BannerlordQOLSubModule.cs" />
+        <Compile Include="src\CombatPatch.cs" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

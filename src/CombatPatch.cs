@@ -6,7 +6,6 @@ using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.MissionViews;
 
-
 namespace BannerlordQOL
 {
   [HarmonyPatch(typeof(MissionMainAgentController), "ControlTick")]
@@ -57,27 +56,6 @@ namespace BannerlordQOL
       {
         MessageBox.Show("An exception occured while trying to process attacking\n\n" + ex.Message);
       }
-    }
-  }
-  public class BannerlordQOLSubModule : MBSubModuleBase
-  {    
-    protected override void OnSubModuleLoad()
-    {
-      base.OnSubModuleLoad();
-      try
-      {
-        Harmony harmonyPatch = new Harmony("bannerlord.bannerlordqol");
-        harmonyPatch.PatchAll();
-      }
-      catch(Exception ex)
-      {
-        MessageBox.Show("Failed hooking BannerlordQOL attacking code\n\n" + ex.Message);
-      }
-    }
-    
-    public static bool OnFinalize(Object __instance)
-    {
-      return true;
     }
   }
 }
