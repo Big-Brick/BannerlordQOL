@@ -21,17 +21,11 @@ namespace BannerlordQOL
 			{
 				Agent mainAgent = __instance.Mission.MainAgent;
 				if (Input.IsKeyPressed(InputKey.Q))
-				{
-					InformationManager.DisplayMessage(new InformationMessage("BannerlordQOLSubModule.UP"));
 					CombatPatch.RequestedDirection = Agent.MovementControlFlag.AttackUp | Agent.MovementControlFlag.DefendUp;
-				}
 				else if (Input.IsKeyPressed(InputKey.Z))
 					CombatPatch.RequestedDirection = Agent.MovementControlFlag.AttackLeft | Agent.MovementControlFlag.DefendLeft;
 				else if (Input.IsKeyPressed(InputKey.X))
-				{
-					InformationManager.DisplayMessage(new InformationMessage("BannerlordQOLSubModule.DOWN"));
 					CombatPatch.RequestedDirection = Agent.MovementControlFlag.AttackDown | Agent.MovementControlFlag.DefendDown;
-				}
 				else if (Input.IsKeyPressed(InputKey.C))
 					CombatPatch.RequestedDirection = Agent.MovementControlFlag.AttackRight | Agent.MovementControlFlag.DefendRight;
 				if (Input.IsKeyDown(InputKey.LeftMouseButton) || Input.IsKeyDown(InputKey.RightMouseButton))
@@ -43,7 +37,6 @@ namespace BannerlordQOL
 					}
 					else
 					{
-						InformationManager.DisplayMessage(new InformationMessage("BannerlordQOLSubModule.CHANGE"));
 						mainAgent.MovementFlags &= Input.IsKeyDown(InputKey.LeftMouseButton) ? ~Agent.MovementControlFlag.AttackMask : ~Agent.MovementControlFlag.DefendMask;
 						mainAgent.MovementFlags |= CombatPatch.RequestedDirection & (Input.IsKeyDown(InputKey.LeftMouseButton) ? Agent.MovementControlFlag.AttackMask : Agent.MovementControlFlag.DefendMask);
 						CombatPatch.CurrentDirection = RequestedDirection;
