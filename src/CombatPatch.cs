@@ -2,7 +2,7 @@ using System;
 using System.Windows.Forms;
 using HarmonyLib;
 using TaleWorlds.InputSystem;
-using TaleWorlds.Library;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.MountAndBlade.View.MissionViews;
 
@@ -19,6 +19,8 @@ namespace BannerlordQOL
 
 			try
 			{
+				if (Campaign.Current.ConversationManager.IsConversationInProgress)
+					return;
 				Agent mainAgent = __instance.Mission.MainAgent;
 				if (Input.IsKeyPressed(InputKey.Q))
 					CombatPatch.RequestedDirection = Agent.MovementControlFlag.AttackUp | Agent.MovementControlFlag.DefendUp;
