@@ -52,6 +52,9 @@ cp BannerlordQOL.dll ../../Gamedir/Modules/BannerlordQOL/bin/Win64_Shipping_Clie
         <Reference Include="TaleWorlds.CampaignSystem.ViewModelCollection">
           <HintPath>Gamedir\bin\Win64_Shipping_Client\TaleWorlds.CampaignSystem.ViewModelCollection.dll</HintPath>
         </Reference>
+        <Reference Include="TaleWorlds.Core">
+          <HintPath>Gamedir\bin\Win64_Shipping_Client\TaleWorlds.Core.dll</HintPath>
+        </Reference>
         <Reference Include="TaleWorlds.DotNet">
           <HintPath>Gamedir\bin\Win64_Shipping_Client\TaleWorlds.DotNet.dll</HintPath>
         </Reference>
