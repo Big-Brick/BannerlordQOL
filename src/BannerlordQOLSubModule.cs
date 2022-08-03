@@ -19,8 +19,13 @@ namespace BannerlordQOL
 			}
 			catch(Exception ex)
 			{
-				MessageBox.Show("Failed hooking BannerlordQOL  code\n\n" + BannerlordQOLSubModule.GetString(ex));
+				MessageBox.Show("Failed hooking BannerlordQOL code\n\n" + BannerlordQOLSubModule.GetString(ex));
 			}
+		}
+
+		public static bool OnFinalize(Object __instance)
+		{
+			return true;
 		}
 
 		private static string GetString(Exception ex)
@@ -45,11 +50,6 @@ namespace BannerlordQOL
 				sb.AppendLine();
 				GetStringRecursive(ex.InnerException, sb);
 			}
-		}
-
-		public static bool OnFinalize(Object __instance)
-		{
-			return true;
 		}
 	}
 }

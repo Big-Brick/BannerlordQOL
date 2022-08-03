@@ -1,0 +1,16 @@
+1h  235 206 206
+axe 129 113 113
+     1.82 1.82
+2h     3291 3291
+sword  1608 1608    
+	2.04
+	
+	259 * 3.13 5380
+	
+	
+	
+	floor(ItemValue * priceFactor) * (1 + SilverTongue.SecondaryBonus)
+	
+	 priceFactor = basePriceFactor/ (1 + tradePenalty)
+	 
+	 basePriceFactor = clamp 0.8, 1.3 of (demand / (0.10000000149011612* supply +  (inStoreValue + transferValue) * 0.03999999910593033 + 2.0) ^ 0.6);
